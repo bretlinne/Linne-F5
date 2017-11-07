@@ -1,0 +1,399 @@
+==============================================
+Network Setup Process using Ansible Playbooks
+==============================================
+
+There are 6 playbooks used to configure the network environment's settings.  There are 4 variable files where values are defined that are used in those playbooks.  If any changes are desired to the settings applied to the network, they should be made in the variable files.
+
+------------------------------
+Playbook listing and Summary:
+------------------------------
+- vlan_playbook.yml
+    configures the Big-IP's vlan settings
+    
+- selfip_playbook.yml
+    configures the Big-IP's self-ip settings
+    
+- routedomain_playbook.yml
+    configures the Big-IP's route-domain settings
+    
+- vServer_playbook.yml
+    configures the Big-IP's virtual server settings
+    
+- vAddr_playbook.yml
+    configures the Big-IP's virtual address settings
+    
+- command_playbook.yml
+    sets the ip-protocol to "any"
+
+------------------------------------
+Viariable File listing and Summary:
+------------------------------------
+- bigipa.yml
+    holds the variables local to the first of three Big-IP's on the network
+    - contains IP addresses, and self-ip external and internal designations
+
+- bigipb.yml
+    holds the variables local to the second of three Big-IP's on the network
+    - contains IP addresses, and self-ip external and internal designations
+    
+- bigipc.yml
+    holds the variables local to the third of three Big-IP's on the network
+    - contains IP addresses, and self-ip external and internal designations
+    
+- bigip.yml
+    holds all variables commonly shared between Big-IP machines.  Contains a grouping of designations as well as common settings:
+    
+    - port: 0
+        This is how to designate that ANY port is available.  If a specific port number is given here instead of 0, ONLY that port will be available.
+        
+    - interface11: 1.1
+    - interface12: 1.2
+        Desginations for the Big-IP's interfaces
+        
+    - rProtocols:
+        The accepted routing protocols are listed here.  By default they are set to BGP and BFD
+        
+    - vAddress
+        The default virtual address is designated here.  Default is 172.16.20.100 //private address space - good
+        
+    - vAddrAvailability
+        Virtual Address Availability is set by default to 'yes'.
+        
+    - profiles
+        Profiles designations are given here.  Default is set to 'fastL4'
+        
+    - netmask
+        The netmask is set to a 24 bit mask, or 255.255.255.0
+    
+---------------------------
+Running the Playbooks
+---------------------------
+On the ansible host server, run the playbooks in the following order:
+
+In a Command Line Interface (CLI)
+
+* Note that after running each playbook, you should check the settings of each Big-IP to ensure you are getting exactly the results you anticipated.
+
+  1) vlan_playbook.yml
+  2) selfip_playbook.yml
+  3) routedomain_playbook.yml
+  4) vServer_playbook.yml
+  5) vAddr_playbook.yml
+  6) command_playbook.yml
+  7) makeRoutingConfigFile_playbook.yml
+
+
+===================================================================================================
+Ansible Playbook Documentation
+===================================================================================================
+
+====================================
+Common to all playbooks in this set:
+====================================
+
+Playbook-level fields:
+----------------------
+hosts: bigip
+This field refers to the hosts file which groups all the bigip devices under this 
+alias.  This means that when this playbook is run, it will be executed for each Bip-IP device 
+defined under the alias [bigip].
+
+connection: local
+This field specifies that the process will be running on (or delegated to) the machine where this 
+playbook is executed. 
+
+
+Task-level fields:
+------------------
+validate_certs: "{{ validate_certs }}"        [COMMON]
+This is set to "no" or "false" by default.
+
+user: "{{ username }}"                        [COMMON] [ENCRYPTED IN VAR FILE]
+This field takes in the username, which is kept in the ansible vault.
+
+password: "{{ password }}"                    [COMMON] [ENCRYPTED IN VAR FILE]
+This field takes in the password, which is kept in the ansible vault.
+================================
+Specific Playbook documentation:
+================================
+
+VLAN_PLAYBOOK
+-------------
+There are two Ansible Plays in this playbook.  One configures the internal VLAN of each Big-IP 
+device that it's invoked upon.  The other configures the external VLAN for each device.  The 
+functionality and fields specified in the Plays are identical.  The differentiation lies in the 
+reference to variables in the host_vars file for each Big-IP device.  Several fields are common 
+between both Plays andreference the group_vars file.
+---------------------------------------------------------------------------------------------------
+# vlan playbook
+---------------
+
+- name: vlan_playbook
+  hosts: bigip
+  connection: local
+  tasks:
+  - name: Create Internal VLAN on the BIG-IP
+    bigip_vlan:
+      name: "{{ vlanIntName }}"
+      server: "{{ ansible_host }}"
+      tag: "{{ tagInt }}"
+      untagged_interfaces: "{{ interface12 }}"
+      user: "{{ user }}"
+      password: "{{ password }}"
+      validate_certs: "{{ validate_certs }}"
+  
+  - name: Create External VLAN on the BIG-IP
+    bigip_vlan:
+      name: "{{ vlanExtName }}"
+      server: "{{ ansible_host }}"
+      tag: "{{ tagExt }}"
+      untagged_interfaces: "{{ interface11 }}"
+      user: "{{ user }}"
+      password: "{{ password }}"
+      validate_certs: "{{ validate_certs }}"
+
+---------------------------------------------------------------------------------------------------
+VLAN Playbook fields
+--------------------
+bigip_vlan:
+This is the name of a predefined module in Ansible, built by F5. All fields (within the same scope)
+below that are related to the functions of this module.
+
+name: "{{ vlanIntName }}"                     [COMMON]
+This field is the label given to the Internal VLAN.  This is used elsewhere in other Ansible 
+playbooks to reference these VLANs.
+
+server: "{{ inventory_hostname }}"            [COMMON]
+The name of the host. By default this is set to 'ansible_host'
+
+tag: "{{ tagInt }}"                           [COMMON]
+tag: "{{ tagExt }}"                           [COMMON]
+These fields take in the tag value for the internal and external VLANs, respectively.
+
+untagged_interfaces: "{{ interface11 }}"      [COMMON]
+untagged_interfaces: "{{ interface12 }}"      [COMMON]
+These fields take in untagged interface values.  Interface 1.1 for the internal, 1.2 for external.
+===================================================================================================
+
+SELFIP_PLAYBOOK
+---------------
+There are two Ansible Plays in this playbook.  One configures the internal Self-IP of each Big-IP 
+device that it's invoked upon.  The other configures the external Self-IP for each device.  The 
+functionality and fields specified in the Plays are identical.  The differentiation lies in the 
+reference to variables in the host_vars file for each Big-IP device.  Several fields are common 
+between both Plays andreference the group_vars file.  
+---------------------------------------------------------------------------------------------------
+# selfip playbook
+---
+- name: selfip_playbook
+  hosts: bigip
+  connection: local
+  tasks:
+  - name: Create Internal SELF-IPs on the BIG-IP
+    bigip_selfip:
+      name: "{{ selfAddrInt }}"
+      address: "{{ selfAddrInt }}"
+      netmask: "{{ netmask }}"
+      server: "{{ ansible_host }}"
+      user: "{{ user }}"
+      password: "{{ password }}"
+      validate_certs: "{{ validate_certs }}"
+      vlan: "{{ vlanIntName }}"
+
+  - name: Create External SELF-IPs on the BIG-IP
+    bigip_selfip:
+      # 'name' can just be the IP
+      name: "{{ selfAddrExt }}"
+      address: "{{ selfAddrExt }}"
+      netmask: "{{ netmask }}"
+      server: "{{ ansible_host }}"
+      user: "{{ user }}"
+      password: "{{ password }}"
+      validate_certs: "{{ validate_certs }}"
+      vlan: "{{ vlanExtName }}"
+
+
+---------------------------------------------------------------------------------------------------
+Self-IP Playbook fields
+-----------------------
+bigip_selfip:This is the name of a predefined module in Ansible, built by F5. All fields (within 
+the same scope) below that are related to the functions of this module.
+
+name: "{{ selfAddrInt }}"                     [HOST SPECIFIC]
+name: "{{ selfAddrExt }}"                     [HOST SPECIFIC]
+This field is the address assigned to the Internal or External self-ip, respectively.
+
+netmask: "{{ netmask }}"                      [COMMON]
+This field specifies a particular netmask.  By default its set to 255.255.255.0
+
+server: "{{ inventory_hostname }}"            [COMMON]
+The name of the host. By default this is set to 'ansible_host'
+
+vlan: "{{ vlanIntName }}"                     [COMMON]
+vlan: "{{ vlanExtName }}"                     [COMMON]
+These fields take in a name label for the internal and external vlan's, respectively. These are the
+same names specified in teh VLAN_PLAYBOOK and we're using them to directly call those VLANs for 
+linkage with the Self-IPs.
+
+===================================================================================================
+
+ROUTEDOMAIN_PLAYBOOK
+--------------------
+There is one Ansible Play in this playbook.  It configures the route domain of each Big-IP 
+device that it's invoked upon.  Several fields are common between both Plays and reference the
+group_vars file.  
+---------------------------------------------------------------------------------------------------
+# routedomain playbook
+---
+- name: Route Domain Playbook
+  hosts: bigip
+  connection: local
+  tasks:
+  # need to include dynamic routing protocols - is this satisfied? Ask Tony
+  - name: Modify route domains on the BIG-IP
+    bigip_routedomain:
+      id: "{{ id }}"
+      user: "{{ user }}"
+      password: "{{ password }}"
+      server: "{{ ansible_host }}"
+      validate_certs: "{{ validate_certs }}"
+      routing_protocol: "{{ rProtocols }}"
+---------------------------------------------------------------------------------------------------
+
+Route Domain Playbook fields
+----------------------------
+bigip_routedomain:
+This is the name of a predefined module in Ansible, built by F5. All fields (within 
+the same scope) below that are related to the functions of this module.
+
+id: "{{ id }}"
+This field is the identification number of the route domain.  It is set initially to 0.
+
+server: "{{ inventory_hostname }}"            [COMMON]
+The name of the host. By default this is set to 'ansible_host'
+
+routing_protocol: "{{ rProtocols }}"          [COMMON]
+This is set to allow both BFD and BGP.
+
+===================================================================================================
+
+VSERVER_PLAYBOOK
+----------------
+There is one Ansible Play in this playbook.  It configures the route domain of each Big-IP 
+device that it's invoked upon.  Several fields are common between both Plays and reference the
+group_vars file. 
+---------------------------------------------------------------------------------------------------
+# vServer playbook
+---
+- name: Add Virtual Server Playbook
+  hosts: bigip
+  connection: local
+  tasks:
+  - name: Add Virtual Server
+    bigip_virtual_server:
+        server: "{{ ansible_host }}"
+        user: "{{ user }}"
+        password: "{{ password }}"
+        name: "{{ vAddressName }}"
+        destination: "{{ vAddress }}"
+        port: "{{ port }}"
+        description: Test Virtual Server
+        all_profiles: "{{ profiles }}"
+        validate_certs: "{{ validate_certs }}"
+---------------------------------------------------------------------------------------------------
+Virtual Server Playbook fields
+------------------------------
+hosts: bigip
+This field refers to the hosts file which groups all the bigip devices under this 
+alias.  This means that when this playbook is run, it will be executed for each Bip-IP device 
+defined under the alias [bigip].
+
+connection: local
+This field specifies that the process will be running on (or delegated to) the machine where this 
+playbook is executed. 
+
+bigip_routedomain:
+This is the name of a predefined module in Ansible, built by F5. All fields (within 
+the same scope) below that are related to the functions of this module.
+
+server: "{{ inventory_hostname }}"            [COMMON]
+The name of the host. By default this is set to 'ansible_host'
+
+name: "{{ vAddressName }}"                    [COMMON]          // FIX THIS - 'vAddressName' should be 'vServerName'
+This is the name of the Virtual Server.  Set initially to 'VS-80'.
+
+destination: "{{ vAddress }}"                 [COMMON]
+This is the virtual address.  Its initially set to #.#.#.#  // FIX THIS LATER
+
+port: "{{ port }}"                            [COMMON]
+Initially set to 0 to allow any port.
+
+all_profiles: "{{ profiles }}"
+Sets the profile for the Virtual Server to be FastL4.
+
+===================================================================================================
+
+Ansible Modules used in the playbooks
+-------------------------------------
+bigip_vlan:
+bigip_selfip:
+bigip_routedomain:
+
+==================================
+Process for creating the playbooks
+==================================
+
+These playbooks were made from a set of data given for a particular network configuration.
+
+The data was derived from a testing environment.  
+
+This data was viewed using the TMSH or Traffic Management Shell, developed by F5.
+
+All aspects of the network can be configured differently if the user supplies different values in 
+the variable files.  
+
+TRAFFIC MANAGEMENT SHELL (TMSH)
+-------------------------------
+
+F5 developed tmsh to allow complete access to all advanced features of F5 devices. Using tmsh you 
+can configure and manage the system from the command line. You can also configure BIG-IP to manage
+local and global traffic, as well as view system performance data.
+
+The specific commands used to view the data needed for creating the playbooks were:
+
+If running commands from BASH:
+tmsh list net vlan
+tmsh list net self-ip
+tmsh list net route-domain
+tmsh list ltm virtual
+tmsh list ltm virtual-address
+
+or type in 'tmsh' at the BASH prompt to enter the shell and use all the commands as above without 
+the tmsh, i.e. 'list net vlan'.
+
+to exit the TMSH, type 'exit'
+
+These commands will display the current configuration for each aspect of the network and allow
+verification as to whether all the settings are correct.  
+
+===================================================================================================
+
+---------------------------
+Modifying the Configuration
+---------------------------
+
+The configuration can be altered from that specified in the provided variable files.  All Ansible
+playbooks are designed to be independent of hard-coded values.  They are all referencial to either
+a group_var file or a specific host_var file.
+
+Values specific to a machine will be modified in the host_var files.  
+Values common across the network are in the group_var file.
+
+
+
+
+
+ENCRYPT COMMAND
+---------------
+ansible-vault encrypt_string -n user admin --output=./test.yml
+ansible-vault encrypt_string -n password admin --output=./test.yml
