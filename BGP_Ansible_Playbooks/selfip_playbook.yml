@@ -1,0 +1,28 @@
+# selfip playbook
+---
+- name: myPlaybook
+  hosts: bigip
+  connection: local
+  tasks:
+  - name: Create Internal SELF-IPs on the BIG-IP
+    bigip_selfip:
+      name: "{{ selfAddrInt }}"
+      address: "{{ selfAddrInt }}"
+      netmask: "{{ netmask }}"
+      server: "{{ ansible_host }}"
+      user: "{{ user }}"
+      password: "{{ password }}"
+      validate_certs: "{{ validate_certs }}"
+      vlan: "{{ vlanIntName }}"
+
+  - name: Create External SELF-IPs on the BIG-IP
+    bigip_selfip:
+      # 'name' can just be the IP
+      name: "{{ selfAddrExt }}"
+      address: "{{ selfAddrExt }}"
+      netmask: "{{ netmask }}"
+      server: "{{ ansible_host }}"
+      user: "{{ user }}"
+      password: "{{ password }}"
+      validate_certs: "{{ validate_certs }}"
+      vlan: "{{ vlanExtName }}"

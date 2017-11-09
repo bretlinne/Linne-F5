@@ -1,0 +1,17 @@
+# routedomain playbook
+---
+- name: Route Domain Playbook
+  hosts: bigip
+  connection: local
+  tasks:
+  # need to include dynamic routing protocols - is this satisfied? Ask Tony
+  - name: Modify route domains on the BIG-IP
+    bigip_routedomain:
+      id: "{{ id }}"
+      user: "{{ user }}"
+      password: "{{ password }}"
+      server: "{{ ansible_host }}"
+      validate_certs: "{{ validate_certs }}"
+      routing_protocol: "{{ rProtocols }}"
+
+  

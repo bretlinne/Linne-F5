@@ -1,0 +1,13 @@
+# vAddress Playbook
+---
+- name: Virtual Address Playbook
+  hosts: bigip
+  connection: local
+  tasks:
+  - name: Modify Virtual Address
+    bigip_virtual_address:
+      use_route_advertisement: "{{ vAddrAvailability }}"
+      address: "{{ vAddress }}"
+      server: "{{ ansible_host }}"
+      user: "{{ user }}"
+      password: "{{ password }}"

@@ -1,0 +1,26 @@
+# vlan playbook
+---
+
+- name: myPlaybook
+  hosts: bigip
+  connection: local
+  tasks:
+  - name: Create Internal VLAN on the BIG-IP
+    bigip_vlan:
+      name: "{{ vlanIntName }}"
+      server: "{{ ansible_host }}"
+      tag: "{{ tagInt }}"
+      untagged_interfaces: "{{ interface12 }}"
+      user: "{{ user }}"
+      password: "{{ password }}"
+      validate_certs: "{{ validate_certs }}"
+  
+  - name: Create External VLAN on the BIG-IP
+    bigip_vlan:
+      name: "{{ vlanExtName }}"
+      server: "{{ ansible_host }}"
+      tag: "{{ tagExt }}"
+      untagged_interfaces: "{{ interface11 }}"
+      user: "{{ user }}"
+      password: "{{ password }}"
+      validate_certs: "{{ validate_certs }}"

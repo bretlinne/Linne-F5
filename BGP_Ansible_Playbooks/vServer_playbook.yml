@@ -1,0 +1,17 @@
+# vServer playbook
+---
+- name: Add Virtual Server Playbook
+  hosts: bigip
+  connection: local
+  tasks:
+  - name: Add Virtual Server
+    bigip_virtual_server:
+        server: "{{ ansible_host }}"
+        user: "{{ user }}"
+        password: "{{ password }}"
+        name: "{{ vAddressName }}"
+        destination: "{{ vAddress }}"
+        port: "{{ port }}"
+        description: Test Virtual Server
+        all_profiles: "{{ profiles }}"
+        validate_certs: "{{ validate_certs }}"

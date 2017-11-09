@@ -1,0 +1,14 @@
+# BigIP Command Playbook
+---
+- name: Bigip Command Playbook
+  hosts: bigip
+  connection: local
+  tasks:
+  - name: Modify the ltm
+    bigip_command:
+      #commands: modify ltm virtual "{{ vAddress }}" ip-protocol any
+      commands: modify ltm virtual "{{ vAddressName }}" ip-protocol any profiles replace-all-with { ipother }
+      server: "{{ ansible_host }}"
+      password: "{{ password }}"
+      user: "{{ user }}"
+      validate_certs: "{{ validate_certs }}"

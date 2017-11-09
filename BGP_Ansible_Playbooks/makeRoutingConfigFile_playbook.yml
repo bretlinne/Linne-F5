@@ -1,0 +1,16 @@
+---
+- name: makeRoutingConfigFile Playbook
+  hosts: bigip
+  connection: local
+  tasks:
+  - copy:
+    dest: /var/tmp/routing_config.txt
+      content: |
+        router bgp {{ bgp_local_as }}
+        bgp router-id {{ bgp_local_routerid }}
+        bgp graceful-restart restart-time 120
+        network {{ bgp_peer_network }}
+        redistribute kernel
+        neighbor {{ bgp_neighbor_ip }} remote-as {{ big_remote_as }}
+        neighbor {{ bgp_neighbor_ip }} soft-reconfiguration inbound
+
