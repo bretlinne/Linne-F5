@@ -1,0 +1,10 @@
+# BGP ECMP Hosts File
+
+[bigip]
+bigipa 
+bigipb
+bigipc
+
+# since this will all be run on the ansible server, I don't need this.
+# [ansibleserver]
+# ansible_host=10.1.1.4 ansible_ssh_pass=root ansible_ssh_user=default
