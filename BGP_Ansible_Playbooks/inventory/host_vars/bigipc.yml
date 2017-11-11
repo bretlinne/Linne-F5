@@ -1,0 +1,7 @@
+# variable file for bigip-c
+address: 10.1.1.9
+ansible_host: 10.1.1.9
+#ansible_ssh_pass: "{{ vault_ansible_pass }}" 
+#ansible_ssh_user: "{{ vault_ansible_user }}" 
+selfAddrExt: 10.1.20.40
+selfAddrInt: 10.1.30.40
