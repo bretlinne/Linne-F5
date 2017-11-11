@@ -100,8 +100,10 @@ __port:__ 0
     This is how to designate that `any` port is available.  If a specific port number is given here instead of `0`, __only__ that port will be available.
 
 __interface11:__ 1.1
+
 __interface12:__ 1.2
-    Desginations for the Big-IP's interfaces
+
+Desginations for the Big-IP's interfaces
 
 __rProtocols:__
     The accepted routing protocols are listed here.  By default they are set to `BGP` and `BFD`.
