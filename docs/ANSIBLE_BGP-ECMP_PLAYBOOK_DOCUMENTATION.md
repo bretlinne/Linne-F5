@@ -28,6 +28,7 @@ settings applied to the network, they should be made in the variable files.
 
 #### bigipa.yml
 - Holds the variables local to the first of three Big-IP's on the network. Contains IP addresses, and self-ip external and internal designations.
+
       # variable file for bigip-a
       address: 10.1.1.7
       ansible_host: 10.1.1.7
@@ -38,6 +39,7 @@ settings applied to the network, they should be made in the variable files.
 
 #### bigipb.yml
 - Holds the variables local to the second of three Big-IP's on the network. Contains IP addresses, and self-ip external and internal designations.
+
       # variable file for bigip-b
       address: 10.1.1.8
       ansible_host: 10.1.1.8
@@ -48,6 +50,7 @@ settings applied to the network, they should be made in the variable files.
 
 #### bigipc.yml
 - Holds the variables local to the third of three Big-IP's on the network. Contains IP addresses, and self-ip external and internal designations.
+
       # variable file for bigip-c
       address: 10.1.1.9
       ansible_host: 10.1.1.9
@@ -57,7 +60,9 @@ settings applied to the network, they should be made in the variable files.
       selfAddrInt: 10.1.30.40
 
 #### bigip.yml [group_var]
-Holds all variables commonly shared between Big-IP machines.  Contains a grouping of designations as well as common settings:
+Holds all variables commonly shared between Big-IP machines.  
+Contains a grouping of designations as well as common settings:
+
       # bigip group vars
       user: !vault |
                 $ANSIBLE_VAULT;1.1;AES256
@@ -83,7 +88,7 @@ Holds all variables commonly shared between Big-IP machines.  Contains a groupin
         - BFD
         - BGP
       id: 0
-      vAddress: 8.8.8.8
+      vAddress: 172.16.20.100
       vAddressName: VS-80
       vAddrAvailability: yes
       profiles: fastL4
