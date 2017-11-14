@@ -200,9 +200,7 @@ to achieve.
 ### Routing Configurations
 Viewed using:
 `imish`
-
 `enable`
-
 `show run`
 
 #### BigIP A Routing Configuration
