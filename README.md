@@ -8,12 +8,14 @@
 
 ## Contents
 [Summary](#Summary)<br />
+[Ansible](#ansible)<br />
 ## Summary
 This repository contains Ansible playbooks as well as some other scripts and inventory files that allows the automated configuration of a network.  The network has a preset configuration and those settings are detailed in the NetworkConfig.md file.  However all settings can be overridden to suit the needs of the User.
 
 ## Getting Started
 The playbooks in this repo are meant to configure F5 Big-IP Traffic Management devices.  In its initial creation, three Big-IP devices were configured, but as we will discuss, it is possible to have Ansible easily configure any number of these devices in a network.
 
+(#ansible)
 ### Ansible
 Ansible is a provisioning and automated network configuration software.  It uses scripts called __Plays__ which declare a particular state to which elements of the  network need to be set.  The modules invoked in these Plays take care of the execution of these states.  An Ansible __Playbook__ comprises one or many Plays.  
 
