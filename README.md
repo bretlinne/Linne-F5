@@ -2,11 +2,12 @@
 ## Repository Directory
 [Playbook Documentation](docs/ANSIBLE_BGP-ECMP_PLAYBOOK_DOCUMENTATION.md)<br />
 [Ansible Vault Details](docs/ANSIBLE_VAULT_DOCUMENTATION.md)<br />
-[Ansible F5 Module Documentation](docs/MODULES.md)\n
-[Network Configuration Listing](docs/NETWORK_CONFIGURATION.md)\n
-[Ansible Variable Precedence](docs/VARIABLE_PRECEDENCE.md)\n
+[Ansible F5 Module Documentation](docs/MODULES.md)<br />
+[Network Configuration Listing](docs/NETWORK_CONFIGURATION.md)<br />
+[Ansible Variable Precedence](docs/VARIABLE_PRECEDENCE.md)<br />
 
-
+## Contents
+[Summary](#Summary)<br />
 ## Summary
 This repository contains Ansible playbooks as well as some other scripts and inventory files that allows the automated configuration of a network.  The network has a preset configuration and those settings are detailed in the NetworkConfig.md file.  However all settings can be overridden to suit the needs of the User.
 
