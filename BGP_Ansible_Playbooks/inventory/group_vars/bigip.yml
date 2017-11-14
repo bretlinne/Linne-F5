@@ -23,7 +23,7 @@ rProtocols:
   - BFD
   - BGP
 id: 0
-vAddress: 8.8.8.8
+vAddress: 172.16.20.100
 vAddressName: VS-80
 vAddrAvailability: yes
 profiles: fastL4
