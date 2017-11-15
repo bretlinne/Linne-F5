@@ -6,21 +6,21 @@ settings applied to the network, they should be made in the variable files.
 
 ## Playbook listing and Summary:
 
-### [Variable Files](#vars)
+### Variable Files
 [Big-IP A](#bigipa)
 [Big-IP B](#bigipb)
 [Big-IP C](#bigipc)
 [Big-IP Group Vars](#bigip)
 
-### [Playbooks](#playbooks)
-[vlan_playbook](#vlan)
-[selfip_playbook](#self)
-[routedomain_playbook](#route)
-[vServer_playbook](#vserver)
-[vAddr_playbook](#vaddress)
-[command_playbook](#command)
+### Playbook Section
+[vlan playbook](#vlan)
+[selfip playbook](#self)
+[routedomain playbook](#route)
+[vServer playbook](#vserver)
+[vAddr playbook](#vaddress)
+[command playbook](#command)
 
-## <a name="vars"></a>Variable File listing and Summary:
+## Variable File listing and Summary:
 
 #### <a name="bigipa"></a>bigipa.yml
 - Holds the variables local to the first of three Big-IP's on the network. Contains IP addresses, and self-ip external and internal designations.
