@@ -9,11 +9,14 @@
 [Ansible Variable Precedence](docs/VARIABLE_PRECEDENCE.md)<br />
 
 ## Contents
-[Summary](#Summary)<br />
-[Running The Playbooks](#running-the-playbooks)<br />
-[tmsh](#tmsh)<br />
-[Creating the Playbooks](#playbook-creation)<br />
-[Modifying the Configuration](#modify-config)<br />
+[Running The Playbooks](#running-the-playbooks) <br />
+
+[tmsh](#tmsh) <br />
+
+[Creating the Playbooks](#playbook-creation) <br />
+
+[Modifying the Configuration](#modify-config) <br />
+
 
 ## Overview
 This repository contains Ansible playbooks as well as some other scripts and inventory files that allows the automated configuration of a network.  The network has a preset configuration and those settings are detailed in the [Network Configuration Listing](docs/NETWORK_CONFIGURATION.md) file.  However all settings can be overridden to suit the needs of the User.
@@ -63,7 +66,6 @@ the variable files.
 
 (#tmsh)
 ### TRAFFIC MANAGEMENT SHELL (TMSH)
--------------------------------
 
 F5 developed tmsh to allow complete access to all advanced features of F5 devices. Using tmsh you
 can configure and manage the system from the command line. You can also configure BIG-IP to manage
