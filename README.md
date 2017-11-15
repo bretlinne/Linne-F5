@@ -14,7 +14,7 @@
 [Modifying the Configuration](#modify-config) <br />
 
 [Running The Playbooks](#running-the-playbooks) <br />
-[Running The Playbooks](#playbook-creation) <br />
+[Running The Playbooks](#running-the-playbooks1) <br />
 [Running The Playbooks](#running-the-playbooks) <br />
 [Running The Playbooks](#running-the-playbooks) <br />
 
@@ -55,7 +55,7 @@ The BGP_Config.sh contains:
     ansible-playbook vAddr_playbook.yml -i inventory --ask-vault-pass
     ansible-playbook command_playbook.yml -i inventory --ask-vault-pass
 
-(#playbook-creation)
+(#running-the-playbooks1)
 ## Process for creating the playbooks
 These playbooks were made from a set of data given for a particular network configuration.
 
