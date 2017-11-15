@@ -7,18 +7,18 @@ settings applied to the network, they should be made in the variable files.
 ## Playbook listing and Summary:
 
 ### Variable Files
-[Big-IP A](#bigipa)
-[Big-IP B](#bigipb)
-[Big-IP C](#bigipc)
-[Big-IP Group Vars](#bigip)
+[Big-IP A](#bigipa)<br />
+[Big-IP B](#bigipb)<br />
+[Big-IP C](#bigipc)<br />
+[Big-IP Group Vars](#bigip)<br />
 
 ### Playbook Section
-[vlan playbook](#vlan)
-[selfip playbook](#self)
-[routedomain playbook](#route)
-[vServer playbook](#vserver)
-[vAddr playbook](#vaddress)
-[command playbook](#command)
+[vlan playbook](#vlan)<br />
+[selfip playbook](#self)<br />
+[routedomain playbook](#route)<br />
+[vServer playbook](#vserver)<br />
+[vAddr playbook](#vaddress)<br />
+[command playbook](#command)<br />
 
 ## Variable File listing and Summary:
 
@@ -331,7 +331,7 @@ Initially set to `0` to allow any port.
 __all_profiles:__ "{{ profiles }}"
 Sets the profile for the Virtual Server to be `FastL4`.
 
-### <a name="vaddress"></a>VADDR_PLAYBOOK
+## <a name="vaddress"></a>VADDR_PLAYBOOK
 
 There is one Ansible Play in this playbook.  It configures the virtual address of each Big-IP
 device that it's invoked upon.  Several fields are common between both Plays and reference the
