@@ -13,12 +13,12 @@ settings applied to the network, they should be made in the variable files.
 [Big-IP Group Vars](#bigip)
 
 ### [Playbooks](#playbooks)
-[vlan_playbook.yml](#vlan)
-[selfip_playbook.yml](#self)
-[routedomain_playbook.yml](#route)
-[vServer_playbook.yml](#vserver)
-[vAddr_playbook.yml](#vaddress)
-[command_playbook.yml](#command)
+[vlan_playbook](#vlan)
+[selfip_playbook](#self)
+[routedomain_playbook](#route)
+[vServer_playbook](#vserver)
+[vAddr_playbook](#vaddress)
+[command_playbook](#command)
 
 ## <a name="vars"></a>Variable File listing and Summary:
 
