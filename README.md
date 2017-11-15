@@ -52,8 +52,7 @@ The BGP_Config.sh contains:
     ansible-playbook vAddr_playbook.yml -i inventory --ask-vault-pass
     ansible-playbook command_playbook.yml -i inventory --ask-vault-pass
 
-(#tmsh)
-## Process for creating the playbooks
+## <a name="playbook-creation"></a>Process for creating the playbooks
 These playbooks were made from a set of data given for a particular network configuration.
 
 The data was derived from a testing environment.  
@@ -63,8 +62,7 @@ This data was viewed using the TMSH or Traffic Management Shell, developed by F5
 All aspects of the network can be configured differently if the user supplies different values in
 the variable files.  
 
-(#tmsh)
-### TRAFFIC MANAGEMENT SHELL (TMSH)
+### <a name="tmsh"></a>TRAFFIC MANAGEMENT SHELL (TMSH)
 
 F5 developed tmsh to allow complete access to all advanced features of F5 devices. Using tmsh you
 can configure and manage the system from the command line. You can also configure BIG-IP to manage
@@ -99,8 +97,7 @@ __Example output for `tmsh list net self-ip`:__
         vlan External
     }
 
-(#modify-config)
-### Modifying the Configuration
+### <a name="modify-config"></a>Modifying the Configuration
 The configuration can be altered from that specified in the provided variable files.  All Ansible playbooks are designed to be independent of hard-coded values.  They are all referencial to either a group_var file or a specific host_var file.
 
 1. Open the group_var file `bigip.yml` and edit whichever settings that are to be common across the Big-IP devices.
