@@ -32,8 +32,8 @@ Ansible needs to be installed on your Ansible Server.
 In order to install Ansible, there are a couple steps needed.
 Its always prudent to run apt-get updates when doing some new configuring on a server, even an established one.
 Run:
-`sudo apt-get update`
-`sudo apt-get upgrade`
+`sudo apt-get update`<br />
+`sudo apt-get upgrade`<br />
 
-If working on an established server, it might work better to use:
-`sudo apt-get dist-upgrade`
+If working on an established server, it might work better to use:<br />
+`sudo apt-get dist-upgrade`<br />
