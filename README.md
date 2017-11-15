@@ -26,8 +26,8 @@ The playbooks in this repo are meant to configure F5 Big-IP Traffic Management d
 The best place to get started depends on what is required.  
 reviewing the current network configuration is a good first step.  If that is satisfactory, then __[setting up the Ansible environment](docs/ANSIBLE_ENVIRONMENT_SETUP.md)__ would be the next best procedure.
 
-(#running-the-playbooks)
-## Running the Playbooks
+
+## <a name="running-the-playbooks"></a>Running the Playbooks
 Once the Ansible Environment has been setup, the playbooks can be executed. This can be done by either manually issuing each of the following, or by using the helper script `BGP_Config.sh`.  On the Ansible host server, run the playbooks in the following order:
 
 In a Command Line Interface (CLI)
