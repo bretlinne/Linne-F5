@@ -153,6 +153,7 @@ device that it's invoked upon.  The other configures the external VLAN for each 
 functionality and fields specified in the Plays are identical.  The differentiation lies in the
 reference to variables in the host_vars file for each Big-IP device.  Several fields are common
 between both Plays and reference the group_vars file.
+
 ```
 # vlan playbook
 ---
@@ -179,7 +180,7 @@ tasks:
     user: "{{ user }}"
     password: "{{ password }}"
     validate_certs: "{{ validate_certs }}"
-    ```
+```
 
 #### VLAN Playbook fields
 
