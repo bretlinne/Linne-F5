@@ -9,14 +9,11 @@
 [Ansible Variable Precedence](docs/VARIABLE_PRECEDENCE.md)<br />
 
 ## Contents
-[tmsh](#tmsh) <br />
-[Creating the Playbooks](#playbook-creation) <br />
-[Modifying the Configuration](#modify-config) <br />
+[Running The Playbooks](Page#running-the-playbooks) <br />
+[Verify Config with TMSH](Page#tmsh) <br />
+[Creating the Playbooks](Page#playbook-creation) <br />
+[Modifying the Configuration](Page#modify-config) <br />
 
-[Running The Playbooks](#running-the-playbooks) <br />
-[Running The](#running-the) <br />
-[Running The Playbooks](#running-the-playbooks) <br />
-[Running The Playbooks](#running-the-playbooks) <br />
 
 
 
@@ -55,7 +52,7 @@ The BGP_Config.sh contains:
     ansible-playbook vAddr_playbook.yml -i inventory --ask-vault-pass
     ansible-playbook command_playbook.yml -i inventory --ask-vault-pass
 
-(#running-the)
+(#tmsh)
 ## Process for creating the playbooks
 These playbooks were made from a set of data given for a particular network configuration.
 
