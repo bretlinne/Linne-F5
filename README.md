@@ -1,9 +1,11 @@
 # BGP ECMP Ansible Playbooks
 ## Repository Directory
+[Network Configuration Listing](docs/NETWORK_CONFIGURATION.md)<br />
+[Ansible Environment Setup](docs/ANSIBLE_ENVIRONMENT_SETUP.md)<br />
 [Playbook Documentation](docs/ANSIBLE_BGP-ECMP_PLAYBOOK_DOCUMENTATION.md)<br />
 [Ansible Vault Details](docs/ANSIBLE_VAULT_DOCUMENTATION.md)<br />
 [Ansible F5 Module Documentation](docs/MODULES.md)<br />
-[Network Configuration Listing](docs/NETWORK_CONFIGURATION.md)<br />
+[ZebOS Script Documentation](docs/ZEB_OS_DOCUMENTATION.md)<br />
 [Ansible Variable Precedence](docs/VARIABLE_PRECEDENCE.md)<br />
 
 ## Contents
