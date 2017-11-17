@@ -23,7 +23,7 @@ settings applied to the network, they should be made in the variable files.
 ## Variable File listing and Summary:
 
 #### <a name="bigipa"></a>bigipa.yml
-- Holds the variables local to the first of three Big-IP's on the network. Contains IP addresses, and self-ip external and internal designations.
+Holds the variables local to the first of three Big-IP's on the network. Contains IP addresses, and self-ip external and internal designations.
 ```
 # variable file for bigip-a
 address: 10.1.1.7
@@ -34,7 +34,7 @@ selfAddrExt: 10.1.20.20
 selfAddrInt: 10.1.30.20
 ```
 #### <a name="bigipb"></a>bigipb.yml
-- Holds the variables local to the second of three Big-IP's on the network. Contains IP addresses, and self-ip external and internal designations.
+Holds the variables local to the second of three Big-IP's on the network. Contains IP addresses, and self-ip external and internal designations.
 ```
 # variable file for bigip-b
 address: 10.1.1.8
@@ -45,7 +45,7 @@ selfAddrExt: 10.1.20.30
 selfAddrInt: 10.1.30.30
 ```
 #### <a name="bigipc"></a>bigipc.yml
-- Holds the variables local to the third of three Big-IP's on the network. Contains IP addresses, and self-ip external and internal designations.
+Holds the variables local to the third of three Big-IP's on the network. Contains IP addresses, and self-ip external and internal designations.
 ```
 # variable file for bigip-c
 address: 10.1.1.9
@@ -95,11 +95,7 @@ tagInt: 30
 __port:__ 0
     This is how to designate that `any` port is available.  If a specific port number is given here instead of `0`, __only__ that port will be available.
 
-__interface11:__ 1.1
-
-__interface12:__ 1.2
-
-Desginations for the Big-IP's interfaces
+__interface11:__ 1.1<br />__interface12:__ 1.2<br />Desginations for the Big-IP's interfaces
 
 __rProtocols:__
     The accepted routing protocols are listed here.  By default they are set to `BGP` and `BFD`.
@@ -252,7 +248,7 @@ This field specifies a particular netmask.  By default its set to `255.255.255.0
 __vlan:__ "{{ vlanIntName }}"
 __vlan:__ "{{ vlanExtName }}"
 These fields take in a name label for the internal and external vlan's, respectively. These are the
-same names specified in teh VLAN_PLAYBOOK and we're using them to directly call those VLANs for
+same names specified in the VLAN_PLAYBOOK and we're using them to directly call those VLANs for
 linkage with the Self-IPs.
 
 ## <a name="route"></a>ROUTEDOMAIN_PLAYBOOK
@@ -318,8 +314,7 @@ group_vars file.
 __[bigip_virtual_server](https://f5-ansible.readthedocs.io/en/devel/modules/bigip_virtual_server_module.html):__
 This is the name of a predefined module in Ansible, built by F5.
 
-__name:__ "{{ vAddressName }}"
-#  FIX THIS - 'vAddressName' should be 'vServerName'
+__name:__ "{{ vServerName }}"
 This is the name of the Virtual Server.  Set initially to 'VS-80'.
 
 __destination:__ "{{ vAddress }}"
@@ -388,7 +383,9 @@ __[bigip_command](http://f5-ansible.readthedocs.io/en/devel/modules/bigip_comman
 The name of the F5 module.
 
 __commands:__
-`modify ltm virtual "{{ vAddressName }}" ip-protocol any profiles replace-all-with { ipother }`
+```
+modify ltm virtual "{{ vAddressName }}" ip-protocol any profiles replace-all-with { ipother }
+```
 This field defines the command that will be invoked.  To have an ip-protocol set to `any`, a specific protocol needs to be set.  That profile is `{ ipother }`.
 
 It is possible that Ansible will issue a warning that this Play is not __Idempotent__.
