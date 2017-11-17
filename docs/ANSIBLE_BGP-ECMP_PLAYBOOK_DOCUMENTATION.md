@@ -183,16 +183,14 @@ tasks:
 __[bigip_vlan](https://f5-ansible.readthedocs.io/en/devel/modules/bigip_vlan_module.html):__
 This is the name of a predefined __module__ in Ansible, built by F5.
 
-__name:__ "{{ vlanIntName }}"
+__name:__ "{{ vlanIntName }}"<br />__name:__ "{{ vlanExtName }}"
 This field is the label given to the Internal VLAN.  This value is used elsewhere in other Ansible
 playbooks to reference these VLANs.
 
-__tag:__ "{{ tagInt }}"
-__tag:__ "{{ tagExt }}"
+__tag:__ "{{ tagInt }}"<br />__tag:__ "{{ tagExt }}"
 These fields take in the tag value for the internal and external VLANs, respectively.
 
-__untagged_interfaces:__ "{{ interface11 }}"
-__untagged_interfaces:__ "{{ interface12 }}"
+__untagged_interfaces:__ "{{ interface11 }}"<br />__untagged_interfaces:__ "{{ interface12 }}"
 These fields take in untagged interface values.  Interface 1.1 for the internal, 1.2 for external.
 
 
@@ -238,15 +236,13 @@ between both Plays and reference the group_vars file.
 __[bigip_selfip](https://f5-ansible.readthedocs.io/en/devel/modules/bigip_selfip_module.html):__
 This is the name of a predefined module in Ansible, built by F5.
 
-__name:__ "{{ selfAddrInt }}"
-__name:__ "{{ selfAddrExt }}"
+__name:__ "{{ selfAddrInt }}"<br />__name:__ "{{ selfAddrExt }}"
 *Host specific variable*. This field is the address assigned to the Internal or External self-ip, respectively.
 
 __netmask:__ "{{ netmask }}"
 This field specifies a particular netmask.  By default its set to `255.255.255.0`
 
-__vlan:__ "{{ vlanIntName }}"
-__vlan:__ "{{ vlanExtName }}"
+__vlan:__ "{{ vlanIntName }}"<br />__vlan:__ "{{ vlanExtName }}"
 These fields take in a name label for the internal and external vlan's, respectively. These are the
 same names specified in the VLAN_PLAYBOOK and we're using them to directly call those VLANs for
 linkage with the Self-IPs.
