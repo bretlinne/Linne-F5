@@ -1,5 +1,5 @@
 ### Onboarding Module Documentation
-[bigip_routedoamin](http://f5-ansible.readthedocs.io/en/devel/modules/bigip_routedomain_module.html)
+[bigip_routedoamin](https://docs.ansible.com/ansible/latest/modules/bigip_routedomain_module.html#bigip-routedomain-module)
 
 [bigip_selfip](https://f5-ansible.readthedocs.io/en/devel/modules/bigip_selfip_module.html)
 
